@@ -129,7 +129,12 @@ def transition(board: Board, action: Action) -> Board:
 def available_actions(board_data: Board) -> Collection[Action]:
     # TODO: available_actions (10 points)
     #    Documenter et implémenter nim.available_actions
-    ...
+    actions = list()
+    for heapIndex, heapSize in enumerate(board_data):
+        for i in range (1, heapSize + 1):
+            actions.append((heapIndex, i))
+
+    return actions
 
 
 class Nim:
