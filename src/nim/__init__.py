@@ -134,6 +134,7 @@ def available_actions(board_data: Board) -> Collection[Action]:
         for i in range (1, heapSize + 1):
             actions.append((heapIndex, i))
 
+    print(actions)
     return actions
 
 

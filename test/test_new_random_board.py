@@ -13,16 +13,15 @@ def test_num_heaps_negative():
 
 
 def test_num_heaps_random():
-    random_integer = randint(1, 10)
+    random_heaps_integer = randint(1, 10)
 
-    assert len(new_random_board(random_integer)) == random_integer
+    assert len(new_random_board(random_heaps_integer)) == random_heaps_integer
 
 
 def test_num_heaps_provided():
-    # TODO: test_num_heaps_provided (3 points)
-    #   Implémenter test_num_heaps_provided
-    ...
+    number_of_heaps_provided = 3
+    assert number_of_heaps_provided == len(new_random_board(number_of_heaps_provided))
 
 
 def test_num_heaps_not_provided():
-    assert new_random_board()
+    assert 0 < len(new_random_board()) <= 10

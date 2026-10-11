@@ -11,8 +11,8 @@ class QLearning:
     def __init__(
         self,
         epsilon: Probability = 0.1,
-        alpha: Probability = 0.0,
-        gamma: Probability = 0.0,
+        alpha: Probability = 0.5,
+        gamma: Probability = 1.0,
     ):
         r"""Initialise l'IA.
 
@@ -25,12 +25,33 @@ class QLearning:
             epsilon:
                 Le taux d'exploration.
 
+                La chance de jouer un coup random lors de l'apprentissage (pas utilisé lors des vraies parties qui ne sont pas en mode apprentissage).
+                Dans Q learning, on ne veut pas toujours trouver le "meilleur" coup à nos yeux.
+                On veut plutot trouver le meilleur coup absolu, et non à nos yeux.
+                C'est pour cela qu'on utilise epsilon. Utilisé lors du processus d'apprentissage, il nous permet de découvrir des nouveaux coups potentiels
+                La raison est simple, si on jouait toujours le "meilleur" coup à nos yeux, on pourrait
+                manquer des coups bien meilleurs. C'est comme quand tu vas à un resto et que puisqu'il est bon, tu y va tous le temps, alors tu en manques
+                des bien meilleurs.
+                Donc par exemple, un epsilon de 0.1 veut dire 10% de chance d'explorer un coup random.
+
+                J'ai choisi 0.1, car je veux que ses coups fassent du sens et pour qu'il sache jouer contre des adversaires plus robustes
+                Si j'avais choisi 1, il jouerait contre un adversaire qui n'utilise aucune logique tout comme lui,
+                donc les résultats seraient basés sur des parties de mauvais joueurs (coups totalement randoms)
                 TODO: epsilon (5 points)
                     Identifier une valeur par défaut
                     et documenter le paramètre alpha de manière à expliquer
                     le sens du paramètre et le choix de sa valeur.
             alpha:
                 Le facteur d'apprentissage.
+                Alpha sert seulement à définir la grosseur des modifications qu'il fait.
+                Un alpha haut veut dire qu'il fait confiance à l'information qu'il apprend
+                alors que un alpha bas veut dire qu'il ne fait pas totalement confiance à l'information qu'il apprend
+                Dans d'autre mots, plus que tu fait confiance, plus que le changement du Q value va être drastique, ce qui
+                n'est pas nécessairement bon puisque ca peut être erroné
+
+
+                J'ai choisi 0.5 car de mon point de vue, 0.5 représente le milieu, ou dans d'autre mots, le point de balance.
+                C'est-à-dire qu'il ne va pas totalement overwrite les vieilles valeurs, et il ne va pas apprendre trop lentement non plus
 
                 TODO: alpha (5 points)
                     Identifier une valeur par défaut
@@ -53,6 +74,10 @@ class QLearning:
                 En revanche, si l'on fixe gamma à 1,
                 l'algorithme recherche des récompenses élevées à long terme.
 
+
+                J'ai choisi 1 car je veux qu'il donne autant d'influence aux récompenses immédiates qu'aux récompenses futures
+                Aussi, vu que dans nim on peut pas retourner en arrière et que si on gagne, on gagne peu importe le nombre de coup,
+                Je n'apporte pas d'influence aux coups potentiellement plus rapides puisque les deux amènent au même résultat.
                 TODO: gamma (2 points)
                     Identifier une valeur par défaut
 

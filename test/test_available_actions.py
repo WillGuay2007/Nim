@@ -15,6 +15,8 @@ def test_empty_board_empty():
 def test_documented_example():
     assert {(0, 1), (1, 1), (0, 2)} == set(available_actions([2, 1, 0, 0]))
 
-
+def test_last_move():
+    assert {(0, 1)} == set(available_actions([1, 0, 0, 0]))
+    
 # TODO: test_available_actions (10 points)
 #   Ajouter des tests pour les cas-limites de available_actions
