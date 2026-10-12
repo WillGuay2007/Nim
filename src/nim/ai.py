@@ -2,7 +2,10 @@ from __future__ import annotations
 
 from typing import Literal
 
-from nim import Action, Board, Probability, QValue
+from nim import Action, Board, Probability, QValue, available_actions
+
+import random
+
 
 type Algorithm = Literal["greedy", "epsilon-greedy"]
 
@@ -28,7 +31,7 @@ class QLearning:
                 La chance de jouer un coup random lors de l'apprentissage (pas utilisé lors des vraies parties qui ne sont pas en mode apprentissage).
                 Dans Q learning, on ne veut pas toujours trouver le "meilleur" coup à nos yeux.
                 On veut plutot trouver le meilleur coup absolu, et non à nos yeux.
-                C'est pour cela qu'on utilise epsilon. Utilisé lors du processus d'apprentissage, il nous permet de découvrir des nouveaux coups potentiels
+                C'est pour cela qu'on utilise epsilon. Utilisé lors du processus d'apprentissage, il nous permet de découvrir des nouveaux coups potentiels.
                 La raison est simple, si on jouait toujours le "meilleur" coup à nos yeux, on pourrait
                 manquer des coups bien meilleurs. C'est comme quand tu vas à un resto et que puisqu'il est bon, tu y va tous le temps, alors tu en manques
                 des bien meilleurs.
@@ -116,6 +119,10 @@ class QLearning:
 
         Si aucune valeur-Q n'existe encore dans `self.q`, retourne 0.
         """
+        if (state, action) in self.q:
+            return self.q[(state, action)]
+        else:
+            return 0
         # TODO: get_q_value (10 points)
         #   Tester et implémenter get_q_value
 
@@ -155,7 +162,8 @@ class QLearning:
         """
         # TODO: update_q_value (10 points)
         #   Tester et implémenter update_q_value
-        raise NotImplementedError
+        new_estimate = reward + self.gamma * future_rewards
+        self.q[(state, action)] = old_q + self.alpha * (new_estimate - old_q)
 
     def best_future_reward(self, state: Board) -> QValue:
         """Estime la meilleure récompense future étant donné un état `state`.
@@ -169,7 +177,16 @@ class QLearning:
         """
         # TODO: best_future_reward (10 points)
         #   Tester et implémenter best_future_reward
-        raise NotImplementedError
+        actions = available_actions(state)
+        if not actions:
+            return 0.0
+
+        max_q = float("-inf")
+        for action in actions:
+            action_value = self.get_q_value(state, action)
+            if action_value > max_q:
+                max_q = action_value
+        return max_q
 
     def choose_action(self, state: Board, train: bool = True) -> Action:
         """Étant donné un état, retourne une action à entreprendre.
@@ -188,4 +205,9 @@ class QLearning:
         """
         # TODO: choose_action (10 points)
         #   Tester et implémenter choose_action
-        raise NotImplementedError
+        actions = available_actions(state)
+        if train and random.random() < self.epsilon:
+            return random.choice(list(actions))
+        return max(actions, key=lambda action: self.get_q_value(state, action))
+
+

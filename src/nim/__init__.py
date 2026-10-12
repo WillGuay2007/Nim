@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import random
 from collections.abc import Collection, Iterable
+from copy import deepcopy
 from typing import Literal, cast
 
 type Board = tuple[int, ...]
@@ -124,6 +125,13 @@ def transition(board: Board, action: Action) -> Board:
     """
     # TODO: transition (10 points)
     #   Tester et implémenter nim.transition
+    if not 0 <= action[0] < len(board):
+        raise IndexError("Heap index is not valid.")
+    if action[1] < 1:
+        raise ValueError("Cannot take less than 1")
+    if action[1] > board[action[0]]:
+        raise ValueError("Cannot take more than the heap size")
+    return tuple(v - action[1] if i == action[0] else v for i, v in enumerate(board))
 
 
 def available_actions(board_data: Board) -> Collection[Action]:
@@ -134,7 +142,6 @@ def available_actions(board_data: Board) -> Collection[Action]:
         for i in range (1, heapSize + 1):
             actions.append((heapIndex, i))
 
-    print(actions)
     return actions
 
 
