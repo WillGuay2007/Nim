@@ -6,7 +6,6 @@ from __future__ import annotations
 
 import random
 from collections.abc import Collection, Iterable
-from copy import deepcopy
 from typing import Literal, cast
 
 type Board = tuple[int, ...]
@@ -78,8 +77,19 @@ Exemples:
 
 
 type QValue = float | int
-# TODO: QValue (5 points)
-#   Documenter le type nim.QValue
+"""
+La récompense estimée d'une certaine action dans un état.
+
+Exemples:
+    >>> (action_perdante := -1)
+    -1
+    >>> (action_régulière_en_attente := 0)
+    0
+    >>> (action_prometteuse := 0.5)
+    0.5
+    >>> (action_gagnante := 1)
+    1
+"""
 
 
 def new_random_board(num_heaps: int | None = None) -> Board:
@@ -135,12 +145,22 @@ def transition(board: Board, action: Action) -> Board:
 
 
 def available_actions(board_data: Board) -> Collection[Action]:
-    # TODO: available_actions (10 points)
-    #    Documenter et implémenter nim.available_actions
-    actions = list()
-    for heapIndex, heapSize in enumerate(board_data):
-        for i in range (1, heapSize + 1):
-            actions.append((heapIndex, i))
+    """Donne les actions possibles dans l'état.
+
+    Args:
+        board_data:
+            Un état d'un plateau de Nim d'origine.
+
+    Return:
+        Une collection d'actions (aller voir le type Action pour plus d'infos).
+        Dans notre cas, c'est une liste, mais j'aurais pu mettre un set aussi.
+        Retourne une liste vide si aucune actions
+    """
+
+    actions = []
+    for heap_index, heap_size in enumerate(board_data):
+        for i in range(1, heap_size + 1):
+            actions.append((heap_index, i))
 
     return actions
 

@@ -1,11 +1,9 @@
 from __future__ import annotations
 
+import random
 from typing import Literal
 
 from nim import Action, Board, Probability, QValue, available_actions
-
-import random
-
 
 type Algorithm = Literal["greedy", "epsilon-greedy"]
 
@@ -40,10 +38,7 @@ class QLearning:
                 J'ai choisi 0.1, car je veux que ses coups fassent du sens et pour qu'il sache jouer contre des adversaires plus robustes
                 Si j'avais choisi 1, il jouerait contre un adversaire qui n'utilise aucune logique tout comme lui,
                 donc les résultats seraient basés sur des parties de mauvais joueurs (coups totalement randoms)
-                TODO: epsilon (5 points)
-                    Identifier une valeur par défaut
-                    et documenter le paramètre alpha de manière à expliquer
-                    le sens du paramètre et le choix de sa valeur.
+
             alpha:
                 Le facteur d'apprentissage.
                 Alpha sert seulement à définir la grosseur des modifications qu'il fait.
@@ -56,10 +51,6 @@ class QLearning:
                 J'ai choisi 0.5 car de mon point de vue, 0.5 représente le milieu, ou dans d'autre mots, le point de balance.
                 C'est-à-dire qu'il ne va pas totalement overwrite les vieilles valeurs, et il ne va pas apprendre trop lentement non plus
 
-                TODO: alpha (5 points)
-                    Identifier une valeur par défaut
-                    et documenter le paramètre alpha de manière à expliquer
-                    le sens du paramètre et le choix de sa valeur.
             gamma:
                 Le facteur d'actualisation.
 
@@ -81,8 +72,6 @@ class QLearning:
                 J'ai choisi 1 car je veux qu'il donne autant d'influence aux récompenses immédiates qu'aux récompenses futures
                 Aussi, vu que dans nim on peut pas retourner en arrière et que si on gagne, on gagne peu importe le nombre de coup,
                 Je n'apporte pas d'influence aux coups potentiellement plus rapides puisque les deux amènent au même résultat.
-                TODO: gamma (2 points)
-                    Identifier une valeur par défaut
 
 
         Le dictionnaire d'apprentissage Q associe les paires (état, action) à
@@ -175,8 +164,6 @@ class QLearning:
         S'il n'y a aucune action disponible dans l'état, retourne 0.
 
         """
-        # TODO: best_future_reward (10 points)
-        #   Tester et implémenter best_future_reward
         actions = available_actions(state)
         if not actions:
             return 0.0
@@ -184,8 +171,7 @@ class QLearning:
         max_q = float("-inf")
         for action in actions:
             action_value = self.get_q_value(state, action)
-            if action_value > max_q:
-                max_q = action_value
+            max_q = max(max_q, action_value)
         return max_q
 
     def choose_action(self, state: Board, train: bool = True) -> Action:
@@ -209,5 +195,3 @@ class QLearning:
         if train and random.random() < self.epsilon:
             return random.choice(list(actions))
         return max(actions, key=lambda action: self.get_q_value(state, action))
-
-
