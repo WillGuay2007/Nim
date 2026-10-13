@@ -69,7 +69,8 @@ def play(
         else:
             action = ai.choose_action(game.board)
 
-        new_board = game.move(action)
+        game.move(action)
+        new_board = game.board
         ui.show_transition(old_board, action, new_board)
         ui.show_board(new_board)
         last_step[current_player] = (old_board, action)
