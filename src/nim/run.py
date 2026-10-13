@@ -114,7 +114,7 @@ def train(ai: QLearning, num_train_iterations: int):
 
 def run(
     human_player: Player | None = None,
-    num_train_iterations: int = 0,
+    num_train_iterations: int = 10000,
     initial_board: Board | None = None,
     epsilon: Probability | None = None,
     alpha: Probability | None = None,
