@@ -20,6 +20,10 @@ Exemples:
 """
 
 
+def main():
+    run()
+
+
 def play(
     game: Nim | None = None,
     ai: QLearning | None = None,
@@ -65,7 +69,8 @@ def play(
         else:
             action = ai.choose_action(game.board)
 
-        new_board = game.move(action)
+        game.move(action)
+        new_board = game.board
         ui.show_transition(old_board, action, new_board)
         ui.show_board(new_board)
         last_step[current_player] = (old_board, action)
@@ -108,7 +113,7 @@ def train(ai: QLearning, num_train_iterations: int):
 
 
 def run(
-    human_player: Player | None,
+    human_player: Player | None = None,
     num_train_iterations: int = 0,
     initial_board: Board | None = None,
     epsilon: Probability | None = None,
