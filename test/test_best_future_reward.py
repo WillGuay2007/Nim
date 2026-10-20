@@ -1,6 +1,5 @@
 from nim import ai
 
-
 def test_best_future_reward():
     model = ai.QLearning()
     model.q[(1, 0), (0, 1)] = -1

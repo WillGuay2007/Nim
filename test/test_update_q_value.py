@@ -9,3 +9,21 @@ def test_update_q_value():
     model.update_q_value(state, action, 0, 1, 0)
 
     assert model.q[(state, action)] == 0.5
+
+def test_update_q_value_with_old_q():
+    model = ai.QLearning(alpha=0.5, gamma=1.0)
+    state = (1, 2)
+    action = (0, 1)
+
+    model.update_q_value(state, action, 0.5, 1, 0)
+
+    assert model.q[(state, action)] == 0.75
+
+def test_update_q_value_with_low_alpha():
+    model = ai.QLearning(alpha=0.05, gamma=1.0)
+    state = (1, 2)
+    action = (0, 1)
+
+    model.update_q_value(state, action, 0, 1, 0)
+
+    assert model.q[(state, action)] == 0.05

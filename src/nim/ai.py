@@ -112,8 +112,6 @@ class QLearning:
             return self.q[(state, action)]
         else:
             return 0
-        # TODO: get_q_value (10 points)
-        #   Tester et implémenter get_q_value
 
     def update_q_value(
         self,
@@ -149,8 +147,6 @@ class QLearning:
         facteur d'actualisation.
 
         """
-        # TODO: update_q_value (10 points)
-        #   Tester et implémenter update_q_value
         new_estimate = reward + self.gamma * future_rewards
         self.q[(state, action)] = old_q + self.alpha * (new_estimate - old_q)
 
@@ -189,8 +185,6 @@ class QLearning:
         elles est une valeur de retour acceptable.
 
         """
-        # TODO: choose_action (10 points)
-        #   Tester et implémenter choose_action
         actions = available_actions(state)
         if train and random.random() < self.epsilon:
             return random.choice(list(actions))
