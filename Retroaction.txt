@@ -1,0 +1,3 @@
+Pour améliorer les prochains TP, tu devrais les tester et verifier que tout fonctionne avant de nous les donner.
+Aussi, tu devrais repasser sur ton contenu au moins deux fois pour t'assurer qu'il n'y a pas de confusion afin qu'on ne parte pas sur des mauvaises bases.
+Donner plus de documentation sur les commandes dans le terminal, car il a fallu que je t'attende pour pouvoir réussir à run mon programme, même si c'est en parti à cause que le uv run nim était mal configuré.
