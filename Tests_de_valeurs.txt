@@ -1,0 +1,20 @@
+Epsilon = 1:
+En changeant l'epsilon à 1, je remarque que l'ai ne peut pas devenir bonne. Au lieu d'utiliser des faits, elle utilise le hazard lors du training ce qui fait en sorte qu'elle affronte une autre AI qui n'a pas de raisonnement. Donc même si le Q value se fait update, il y a une très forte chance que cette nouvelle valeur soit incorrecte.
+
+Epsilon = 0.5:
+J'ai remarqué que l'AI a une forme de logique, mais ca reste que elle fait des fautes pareil. C'est surement car le ratio epsilon vs Meilleur coup devrait donner plus d'importance au Meilleur coup.
+
+Epsilon = 0:
+En changeant l'epsilon à 0, je remarque qu'elle n'a pas vraiment apprise. Elle n'a jamais essayée la variétée dans l'entrainement, ce qui fait qu'elle va rien connaitre dans un contexte général.
+
+Alpha = 1:
+L'AI a tendance à trop faire confiance, ce qui fait que l'information peut très facilement être erronée, et c'est pour ca que c'est facile de gagner.
+
+Alpha = 0:
+L'AI va juste rien apprendre du tout, tout est choisi de facon "random" dans une vraie partie ainsi que dans le training (sauf si immediate reward), donc les coups n'ont pas fait de sens.
+
+Gamma = 0:
+L'AI va pas mal ignorer ce qu'elle apprend, donc elle va plus se baser sur les immediate rewards qu'autre chose. C'est pour ca qu'elle était pas bonne quand je l'ai testée.
+
+Gamma = 1:
+L'AI Attribue autant d'importance pour les résultats immédiats que futurs avec une logique concrète. Donc elle avait quand même une bonne logique.
