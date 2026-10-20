@@ -133,8 +133,6 @@ def transition(board: Board, action: Action) -> Board:
         L'état du plateau de Nim résultant de l'application de l'action
         sur l'état d'origine.
     """
-    # TODO: transition (10 points)
-    #   Tester et implémenter nim.transition
     if not 0 <= action[0] < len(board):
         raise IndexError("Heap index is not valid.")
     if action[1] < 1:

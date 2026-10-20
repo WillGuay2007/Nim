@@ -1,8 +1,10 @@
 from nim import transition
 
+
 def test_transition():
     new_board = transition((1, 1), (0, 1))
-    assert(new_board == (0, 1))
+    assert new_board == (0, 1)
+
 
 def test_transition_invalid_heap():
     try:
@@ -12,6 +14,7 @@ def test_transition_invalid_heap():
     else:
         assert False
 
+
 def test_transition_less_than_1_picked():
     try:
         transition((1, 1), (0, -1))
@@ -19,6 +22,7 @@ def test_transition_less_than_1_picked():
         assert True
     else:
         assert False
+
 
 def test_transition_take_more_than_heap_size():
     try:
